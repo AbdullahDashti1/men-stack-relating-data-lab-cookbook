@@ -15,6 +15,7 @@ const passUserToView = require("./middleware/pass-user-to-view.js");
 
 // Controllers
 const authController = require('./controllers/auth.js');
+const foodsController = require('./controllers/foods.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -44,19 +45,16 @@ app.use(
   })
 );
 app.use(passUserToView);
+app.use('/auth', authController);
+app.use(isSignedIn);
+app.use('/users/:userId/foods', foodsController);
 
 // PUBLIC
 app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-app.use('/auth', authController);
-
 // PROTECTED
-
-app.get("/vip-lounge", isSignedIn, (req, res) => {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-});
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
