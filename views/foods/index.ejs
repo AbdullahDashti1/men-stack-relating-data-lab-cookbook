@@ -9,9 +9,25 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-        <h1>Welcome to my Pantry</h1>
+        <h1>My Pantry</h1>
         <a href="/users/<%= user._id %>/foods/new">Add New Item</a>
 
+        <ul>
+            <% if (user.pantry.length> 0) { %>
+                <% user.pantry.forEach(food=> { %>
+                    <li>
+                        <%= food.name %> — <%= food.quantity %>
+                                <a href="/users/<%= user._id %>/foods/<%= food._id %>/edit">Edit</a>
+                                <form action="/users/<%= user._id %>/foods/<%= food._id %>?_method=DELETE" method="POST"
+                                    style="display:inline;">
+                                    <button type="submit">Delete</button>
+                                </form>
+                    </li>
+                    <% }) %>
+                        <% } else { %>
+                            <li>No items yet.</li>
+                            <% } %>
+        </ul>
 </body>
 
 </html>

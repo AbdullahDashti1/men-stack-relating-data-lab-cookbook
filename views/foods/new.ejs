@@ -8,18 +8,18 @@
 </head>
 
 <body>
-    <h1>Add New Food Item</h1>
-    <form action="/users/<%= user._id %>/foods" method="POST">
-        <input type="hidden" name="user._id" value="<%= user._id %>">
+    <%- include('../partials/_navbar.ejs') %>
+        <h1>Add Pantry Item</h1>
 
-        <label for="name">Food Name:</label>
-        <input type="text" name="name" id="name" required>
+        <form action="/users/<%= user._id %>/foods" method="POST">
+            <label for="name">Food Name:</label>
+            <input type="text" id="name" name="name" required />
 
-        <label for="quantity">Quantity:</label>
-        <input type="number" name="quantity" id="quantity" required>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="0" value="1" />
 
-        <button type="submit">Add Item</button>
-    </form>
+            <button type="submit">Add Item</button>
+        </form>
 </body>
 
 </html>
